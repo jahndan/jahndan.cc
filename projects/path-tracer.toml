@@ -1,0 +1,19 @@
+title = "Path tracer (CPU based)"
+priority = 2
+demo.title = "Render of a variation on the classic Cornell box scene"
+demo.alt = """
+A room has a green wall on the left, a red wall on the right, and the remaining
+walls white. There is a refractive bubble in the center of the room, which
+leaves a subtle caustic pattern on the floor; and a square light on the ceiling,
+which lights up the entire scene.
+"""
+demo.img = "./path-tracer.avif"
+description = """
+This project is a CPU based path tracer written in C++ that uses the glm library
+for SIMD acceleration and OpenMP for parallel image rendering. It implements
+Monte Carlo path tracing with supersampling to produce global illumination
+effects including ambient occlusion, reflection, refraction, and depth of field.
+The renderer supports spheres and parallelogram primitives, emissive materials
+for area lighting, a sky based environment light, and a BVH for efficient ray
+intersection, with random ray scattering used to simulate light transport.
+"""

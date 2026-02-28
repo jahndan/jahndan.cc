@@ -1,0 +1,86 @@
+---
+import { getCollection } from "astro:content";
+import CommonLayout from "/src/layouts/CommonLayout.astro";
+import ProjectListing from "/src/ui/ProjectListing.astro";
+import StandChart from "/src/ui/StandChart.astro";
+import Fields from "/src/fields.md";
+
+const stats = [
+  ["破壊力", 2 / 6], // Destructive Power (破壊力, Hakairyoku)
+  ["スピード", 5 / 6], // Speed (スピード, Supīdo)
+  ["射程距離", 1 / 6], // Range (射程距離, Shatei Kyori)
+  ["持続力", 3 / 6], // Stamina (持続力, Jizoku-ryoku)
+  ["精密動作性", 5 / 6], // Precision (精密動作性, Seimitsu Dōsa-sei)
+  ["成長性", 4 / 6], // Development Potential (成長性, Seichō-sei)
+];
+
+const projects = await getCollection("projects");
+projects.sort((a, b) => b.data.priority - a.data.priority);
+
+const frontmatter = {
+  title: "portfolio",
+};
+---
+
+<CommonLayout frontmatter={frontmatter}>
+  <article>
+    <h1>Portfolio</h1>
+    <p>
+      My academic focus has largely been on stochastic systems, signal
+      processing, and numerical computation; however, I'm developing an interest
+      in digital hardware design and VLSI. In general, I'm keen on engineering
+      software and hardware with a healthy respect for mathematical structure
+      and physical implementation details. This page showcases projects and
+      technical areas that reflect these interests.
+    </p>
+    <section id="skills">
+      <h2>Areas of focus</h2>
+      <div class="half-split">
+        <div class="left-half">
+          <Fields />
+        </div>
+        <div class="right-half">
+          <StandChart stats={stats} />
+        </div>
+      </div>
+    </section>
+    <section id="selected-works">
+      <h2>Selected works</h2>
+      {projects.map((project) => <ProjectListing info={project.data} />)}
+
+      {/* TODO remove this disclaimer later */}
+      <div id="disclaimer">
+        <small>
+          *These are the most interesting ones I've worked on recently—I'll put
+          together a showcase for the older ones later.
+        </small>
+      </div>
+    </section>
+  </article>
+</CommonLayout>
+
+<style>
+  .half-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    column-gap: 32px;
+    margin-top: var(--block-spacing);
+    margin-bottom: var(--block-spacing);
+  }
+  .left-half {
+    order: 0;
+  }
+  .right-half {
+    order: 1;
+  }
+  @media (max-width: 500px) {
+    .half-split {
+      grid-template-columns: 1fr;
+    }
+    .right-half {
+      margin-top: var(--block-spacing);
+      margin-bottom: var(--block-spacing);
+    }
+  }
+</style>

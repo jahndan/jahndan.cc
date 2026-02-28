@@ -1,0 +1,34 @@
+---
+import CommonLayout from "/src/layouts/CommonLayout.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("posts");
+const flat = allPosts.flatMap((post) => post.data.tags);
+const tagCounts = flat.reduce((counts, t) => {
+  counts.set(t, (counts.has(t) ? counts.get(t) : 0) + 1);
+  return counts;
+}, new Map());
+const tags = Array.from(tagCounts);
+
+const frontmatter = {
+  title: "all tags",
+};
+---
+
+<CommonLayout frontmatter={frontmatter}>
+  <article>
+    <p>All tags used in blog posts:</p>
+    <ul>
+      {
+        tags.map(([tag, count]) => (
+          <li>
+            <a href={`/blog/tags/${tag}`}>
+              <strong>{tag}</strong>
+              <small>({count})</small>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </article>
+</CommonLayout>

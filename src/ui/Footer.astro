@@ -1,0 +1,66 @@
+---
+import { Image } from "astro:assets";
+
+import Linkedin from "/src/icons/linkedin.svg";
+import Github from "/src/icons/github.svg";
+import Instagram from "/src/icons/instagram.svg";
+import Soundcloud from "/src/icons/soundcloud.svg";
+---
+
+<footer>
+  <section id="socials">
+    <a title="LinkedIn profile" href="https://linkedin.com/in/jahndan">
+      <Linkedin />
+    </a>
+    <a title="GitHub profile" href="https://github.com/jahndan">
+      <Github />
+    </a>
+    <a title="Instagram profile" href="https://instagram.com/jahndan">
+      <Instagram />
+    </a>
+    <a title="SoundCloud profile" href="https://soundcloud.com/jahndan">
+      <Soundcloud />
+    </a>
+  </section>
+  <section id="disclaimer">
+    <p>
+      © 2025–2026 <a href="https://jahndan.cc/">jahndan</a>. All rights
+      reserved.
+    </p>
+  </section>
+</footer>
+
+<style>
+  * {
+    text-align: inherit;
+  }
+
+  footer {
+    font-family: var(--font-sans);
+    padding: 1rem 0;
+    border-top: var(--thick-0) solid var(--color-n5);
+  }
+
+  a {
+    color: var(--color-n8);
+  }
+  a:hover {
+    color: var(--color-n9);
+  }
+
+  #socials {
+    display: flex;
+    justify-content: center;
+    column-gap: 8px;
+    svg {
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+  #disclaimer {
+    color: var(--color-n6);
+    font-size: 0.75rem;
+    text-align: center;
+  }
+</style>

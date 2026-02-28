@@ -1,0 +1,45 @@
+---
+import CommonLayout from "/src/layouts/CommonLayout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection("posts");
+  const flattenedTags = allPosts.flatMap((post) => post.data.tags);
+  const tags = flattenedTags.filter(
+    (value, index, self) => self.indexOf(value) === index,
+  );
+
+  return tags.map((tag) => ({
+    params: { tag },
+    props: {
+      posts: allPosts.filter((post) => post.data.tags.includes(tag)),
+    },
+  }));
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+
+const frontmatter = {
+  title: `all ${tag} posts`,
+};
+---
+
+<CommonLayout frontmatter={frontmatter}>
+  <article>
+    <p>Posts tagged with {tag}:</p>
+    <ul>
+      {
+        posts.map((post) => (
+          <li>
+            <a href={`/blog/${post.id}`}>
+              <strong>{post.data.title}</strong>
+              <small>{post.data.date.toLocaleDateString()}</small>
+              <small>{post.data.description}</small>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </article>
+</CommonLayout>

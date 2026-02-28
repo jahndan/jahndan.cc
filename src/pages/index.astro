@@ -1,0 +1,73 @@
+---
+import CommonLayout from "/src/layouts/CommonLayout.astro";
+import { Content as Intro } from "/src/intro.md";
+
+const frontmatter = {
+  title: "jahndan's website",
+};
+---
+
+<CommonLayout frontmatter={frontmatter}>
+  <article>
+    <section id="overview">
+      <h1>jahndan</h1>
+      <p>Minneapolis, MN</p>
+      <p>University of Minnesota</p>
+      <style>
+        #overview {
+          font-size: 15px;
+
+          * {
+            margin: 0;
+          }
+
+          h1 {
+            font-family: var(--font-sans);
+            font-weight: 500;
+            font-size: 18px;
+            margin-bottom: 4px;
+            color: var(--color-p8);
+            background: none;
+          }
+        }
+      </style>
+    </section>
+    <section id="about-me">
+      <Intro />
+      <style is:global>
+        #footnote-label {
+          display: none;
+        }
+
+        .footnotes {
+          font-size: 0.9em;
+        }
+
+        hr {
+          height: var(--thick-2);
+          background: linear-gradient(
+            in oklch to right,
+            transparent 0%,
+            var(--color-p4) 2.5%,
+            var(--color-p6) 20%,
+            var(--color-s6) 80%,
+            var(--color-s4) 97.5%,
+            transparent 100%
+          );
+        }
+      </style>
+    </section>
+    <style>
+      section {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      section:first-child {
+        margin-top: 0;
+      }
+      section:last-child {
+        margin-bottom: 0;
+      }
+    </style>
+  </article>
+</CommonLayout>

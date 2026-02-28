@@ -1,0 +1,17 @@
+title = "ECE Modsynth"
+priority = 1
+demo.title = "Example output from the implemented voltage-controlled oscillator"
+demo.alt = """
+Three signals analyzed on an oscilloscope, with one sinusoidal signal modulating
+the frequency of the other two signals (one sinusoidal and one sawtooth-like).
+"""
+demo.img = "./modular-synth.avif"
+description = """
+This project involved designing and building a modular synthesizer from scratch,
+implementing core modules including a sequencer, envelope generator, voltage
+controlled oscillator, voltage controlled filter, and voltage controlled
+amplifier. It applied electrical and computer engineering concepts from
+coursework to a cohesive, real world system. I cofounded the group, onboarded
+new members, and developed a digital voltage controlled oscillator that used
+fixed point arithmetic to accelerate pitch to frequency conversion.
+"""

@@ -1,0 +1,23 @@
+{
+  "name": "jahndan.cc",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "fmt": "prettier --write 'src/**/*.{astro,css,md}'",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.2",
+    "@daiji256/rehype-mathml": "^1.2.2",
+    "astro": "^6.1.5",
+    "remark-math": "^6.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1"
+  },
+  "version": "0.0.0",
+  "type": "module",
+  "packageManager": "pnpm@10.28.1"
+}

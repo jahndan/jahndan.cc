@@ -1,0 +1,135 @@
+---
+import HomeButton from "./HomeButton.astro";
+import NavButton from "./NavButton.astro";
+import ThemeSwitcher from "./ThemeSwitcher.astro";
+
+const { current, navigation } = Astro.props;
+---
+
+<header>
+  <div id="header">
+    <div class="logo">
+      <a
+        aria-label="Back to home"
+        aria-current={current == "" && "page"}
+        href="/"
+      >
+        <HomeButton />
+      </a>
+    </div>
+    <div id="buttons">
+      <NavButton />
+      <ThemeSwitcher />
+    </div>
+    <nav id="navMenu">
+      <ul>
+        {
+          navigation.map(([text, url]: [string, string]) => (
+            <li>
+              <a aria-current={current == url && "page"} href={url}>
+                {text}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+
+  <style>
+    header {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: oklch(from var(--color-n0) l c h / 0.5);
+      backdrop-filter: blur(12px);
+      border-bottom: var(--thick-0) solid var(--color-n5);
+      box-shadow: var(--shadow);
+    }
+
+    @media print {
+      header {
+        position: relative;
+      }
+    }
+
+    #header {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 8px 12px;
+      margin: auto;
+      max-width: 800px;
+    }
+
+    @media (max-width: 400px) {
+      #header {
+        grid-template-columns: 1fr auto;
+      }
+    }
+
+    .logo {
+      order: 0;
+      width: fit-content;
+      border-radius: var(--radius-2);
+
+      svg {
+        aspect-ratio: 1 / 1;
+        height: 32px;
+        margin-bottom: -1pt;
+      }
+    }
+
+    nav {
+      order: 0;
+
+      ul {
+        display: flex;
+        list-style: none;
+        gap: 24px;
+        margin: 0;
+        padding: 0;
+      }
+
+      a {
+        display: block;
+        border-radius: var(--radius-2);
+        padding: 4px 6px;
+        color: var(--color-p8);
+        text-decoration: none;
+      }
+
+      a:hover {
+        background-color: var(--color-n1);
+        color: var(--color-s8);
+        text-shadow: 0 0 1px var(--color-s7);
+      }
+    }
+
+    @media (max-width: 400px) {
+      nav {
+        order: 1;
+        ul {
+          display: none;
+        }
+      }
+
+      nav[open] {
+        grid-column: 1 / -1;
+        ul {
+          display: block;
+        }
+      }
+    }
+
+    #buttons {
+      order: 1;
+      display: flex;
+      justify-self: end;
+      align-items: center;
+      gap: 12px;
+    }
+  </style>
+</header>

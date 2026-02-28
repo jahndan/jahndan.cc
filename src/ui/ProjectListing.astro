@@ -1,0 +1,67 @@
+---
+import { Image } from "astro:assets";
+
+const { info } = Astro.props;
+---
+
+<div class="half-split">
+  <div class="proj-desc left-half">
+    <h3>{info.title}</h3>
+    <p>{info.description.replace(/\s+/g, " ").trim()}</p>
+  </div>
+  <div class="proj-demo right-half">
+    <Image
+      pixelated
+      title={info.demo.title.replace(/\s+/g, " ").trim()}
+      alt={info.demo.alt.replace(/\s+/g, " ").trim()}
+      src={info.demo.img}
+    />
+  </div>
+</div>
+
+<style>
+  .proj-desc {
+    h3 {
+      font-size: 17px;
+      --heading-spacing: var(--paragraph-spacing);
+    }
+  }
+
+  .proj-demo {
+    align-content: center;
+
+    img {
+      border-radius: var(--radius-3);
+      border: var(--thick-1) solid var(--color-n5);
+      background: var(--color-p2);
+      padding: var(--thick-1);
+    }
+  }
+
+  /* TODO - split out into multiple classes so variants can avoid duplication */
+  /* - also make them global utility classes for consistent shared styles */
+  /* - half of the point of classes is that they're composable */
+  .half-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    column-gap: 32px;
+    margin-top: var(--block-spacing);
+    margin-bottom: var(--block-spacing);
+  }
+  .left-half {
+    order: 0;
+  }
+  .right-half {
+    order: 1;
+  }
+  @media (max-width: 500px) {
+    .half-split {
+      grid-template-columns: 1fr;
+    }
+    .right-half {
+      margin-top: var(--block-spacing);
+      margin-bottom: var(--block-spacing);
+    }
+  }
+</style>

@@ -1,0 +1,31 @@
+---
+import CommonLayout from "/src/layouts/CommonLayout.astro";
+import { Image } from "astro:assets";
+import caught from "/src/pages/404.webp";
+
+const frontmatter = {
+  title: "page not found",
+};
+---
+
+<CommonLayout frontmatter={frontmatter}>
+  <article>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "72svh",
+      }}
+    >
+      <Image src={caught} alt="" style="width: 128px" pixelated />
+      <div style="margin: 1em 0;">
+        <p style="margin: 0; text-align: center;">404</p>
+        <p style="margin: 0; text-align: center;">
+          <small>oops... there's nothing here</small>
+        </p>
+      </div>
+    </div>
+  </article>
+</CommonLayout>

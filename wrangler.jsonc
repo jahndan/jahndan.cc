@@ -1,0 +1,17 @@
+{
+  "compatibility_date": "2026-03-12",
+  "name": "jahndan-cc",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  },
+  "observability": {
+    "enabled": false
+  },
+  "routes": [
+    {
+      "pattern": "jahndan.cc",
+      "custom_domain": true
+    }
+  ]
+}

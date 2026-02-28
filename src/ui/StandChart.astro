@@ -1,0 +1,126 @@
+---
+const boundX = 320;
+const boundY = 310;
+const chartSize = 300;
+
+const point = (value, angle) => {
+  const theta = 2 * Math.PI * angle - Math.PI / 2;
+  const amplitude = (0.84 * chartSize) / 2;
+  const x = value * amplitude * Math.cos(theta);
+  const y = value * amplitude * Math.sin(theta);
+  return { x, y };
+};
+
+const { stats } = Astro.props;
+const n = stats.length;
+
+const distributionString = stats
+  .map(([_, value], i) => {
+    const { x, y } = point(value, i / n);
+    return `${x},${y}`;
+  })
+  .join(" ");
+
+const labelTransformString = (angle) => {
+  if (0.25 < angle && angle < 0.75) {
+    return `rotate(${360 * (angle - 0.5)}) translate(0, ${(0.9 * chartSize) / 2})`;
+  } else {
+    return `rotate(${360 * angle}) translate(0, ${(-0.9 * chartSize) / 2})`;
+  }
+};
+
+const pointPositions = stats.map(([_, value], i) => point(value, i / n));
+---
+
+<svg
+  style={{ width: `${boundX}px`, height: `${boundY}px`, margin: "auto" }}
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox={`0 0 ${boundX} ${boundY}`}
+>
+  <defs>
+    <g id="rings">
+      <circle cx="0" cy="0" r={(0.14 * chartSize) / 2}></circle>
+      <circle cx="0" cy="0" r={(0.28 * chartSize) / 2}></circle>
+      <circle cx="0" cy="0" r={(0.42 * chartSize) / 2}></circle>
+      <circle cx="0" cy="0" r={(0.56 * chartSize) / 2}></circle>
+      <circle cx="0" cy="0" r={(0.7 * chartSize) / 2}></circle>
+      <circle cx="0" cy="0" r={(0.84 * chartSize) / 2}></circle>
+    </g>
+    <g id="axes">
+      {
+        stats.map((_, i) => (
+          <polyline points={`0,0 ${point(1, i / n).x},${point(1, i / n).y}`} />
+        ))
+      }
+    </g>
+    <circle id="fullcover" cx="0" cy="0" r={(0.9 * chartSize) / 2}></circle>
+    <g
+      id="labels"
+      style={{
+        fontFamily: "serif",
+        fontSize: `${chartSize / 18}px`,
+      }}
+    >
+      {
+        stats.map(([label, _], i, self) => (
+          <text
+            alignment-baseline="central"
+            text-anchor="middle"
+            transform={labelTransformString(i / self.length)}
+          >
+            {label}
+          </text>
+        ))
+      }
+    </g>
+
+    <mask id="maskHole">
+      <circle fill="#fff" cx="0" cy="0" r={chartSize / 2}></circle>
+      <g fill="#000"
+        >{pointPositions.map(({ x, y }) => <circle r="2" cx={x} cy={y} />)}</g
+      >
+    </mask>
+    <mask id="maskFill">
+      <g fill="#888">
+        <polygon points={distributionString}></polygon>
+      </g>
+    </mask>
+    <mask id="maskStroke">
+      <g stroke="#eee">
+        <polygon points={distributionString}></polygon>
+      </g>
+      <g stroke="#fff"
+        >{pointPositions.map(({ x, y }) => <circle r="2" cx={x} cy={y} />)}</g
+      >
+    </mask>
+
+    <linearGradient id="filler" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="var(--color-p3)"></stop>
+      <stop offset="1" stop-color="var(--color-s3)"></stop>
+    </linearGradient>
+    <linearGradient id="stroker" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="var(--color-p6)"></stop>
+      <stop offset="1" stop-color="var(--color-s6)"></stop>
+    </linearGradient>
+  </defs>
+
+  <g transform={`translate(${boundX / 2},${boundY / 2})`}>
+    <g mask="url(#maskHole)">
+      <use
+        href="#rings"
+        xlink:href="#rings"
+        fill="none"
+        stroke-width="var(--thick-0)"
+        stroke="var(--color-n3)"></use>
+      <use
+        href="#axes"
+        xlink:href="#axes"
+        stroke-width="var(--thick-0)"
+        stroke="var(--color-n3)"></use>
+      <use href="#fullcover" mask="url(#maskFill)" fill="url(#filler)"></use>
+    </g>
+
+    <use href="#fullcover" mask="url(#maskStroke)" fill="url(#stroker)"></use>
+    <use href="#labels" fill="var(--color-n7)"></use>
+  </g>
+</svg>

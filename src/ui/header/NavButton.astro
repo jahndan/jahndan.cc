@@ -1,0 +1,49 @@
+---
+import Hamburger from "/src/icons/menu.svg";
+---
+
+<button id="navButton" title="Navigation">
+  <Hamburger />
+</button>
+
+<style>
+  button {
+    display: none;
+  }
+  @media (max-width: 400px) {
+    button {
+      display: block;
+    }
+  }
+
+  svg {
+    height: 20px;
+    width: 20px;
+  }
+
+  button {
+    aspect-ratio: 1 / 1;
+    border: none;
+    border-radius: var(--radius-2);
+    background: none;
+    svg {
+      color: var(--color-p8);
+    }
+  }
+
+  button:hover {
+    background: var(--color-n1);
+    svg {
+      color: var(--color-s8);
+      filter: drop-shadow(0 0 0.5pt currentColor);
+    }
+  }
+</style>
+
+<script is:inline>
+  const handler = () => {
+    document.getElementById("navMenu").toggleAttribute("open");
+  };
+
+  document.getElementById("navButton")?.addEventListener("click", handler);
+</script>

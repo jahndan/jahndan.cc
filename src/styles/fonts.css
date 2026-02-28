@@ -1,0 +1,38 @@
+@font-face {
+  font-family: "Latin Modern Roman";
+  src: url("/fonts/lmromandemi10-regular.woff2");
+  font-style: normal;
+  font-weight: 600;
+  size-adjust: 102.5%;
+}
+
+@font-face {
+  font-family: "Latin Modern Roman";
+  src: url("/fonts/lmromandemi10-oblique.woff2");
+  font-style: italic;
+  font-weight: 600;
+  size-adjust: 102.5%;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("/fonts/InstrumentSans.woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  size-adjust: 97.5%;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("/fonts/InstrumentSans-Italic.woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  size-adjust: 97.5%;
+}
+
+@font-face {
+  font-family: "Commit Mono";
+  src: url("/fonts/CommitMono.woff2");
+  font-weight: 200 700;
+  size-adjust: 107.5%;
+}

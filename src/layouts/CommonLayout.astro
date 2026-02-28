@@ -1,0 +1,49 @@
+---
+import "/src/styles/fonts.css";
+import "/src/styles/global.css";
+import "/src/styles/reset.css";
+
+import Header from "/src/ui/header/Header.astro";
+import Footer from "/src/ui/Footer.astro";
+
+const navigation = [
+  ["blog", "/blog"],
+  ["portfolio", "/portfolio"],
+  ["résumé", "/resume.pdf"],
+];
+
+let {
+  frontmatter: { title, url },
+} = Astro.props;
+if (title != "jahndan's website") {
+  title += " – jahndan";
+}
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="generator" content={Astro.generator} />
+    <slot name="head" />
+  </head>
+  <body>
+    <Header current={url} navigation={navigation} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  body {
+    background-color: #fcfcfc;
+  }
+  .dark body {
+    background-color: #0a0a0a;
+  }
+</style>
